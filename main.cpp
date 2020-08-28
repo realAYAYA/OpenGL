@@ -154,6 +154,7 @@ int main(int argc,char *argv[]) {
     }
 
     glViewport(0, 0, 800, 600);
+    cout << "Hello OpenGL!\n";
 
     //����״̬
     //glEnable(GL_CULL_FACE);
