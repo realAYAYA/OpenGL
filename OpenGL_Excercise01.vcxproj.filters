@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\Services">
+      <UniqueIdentifier>{ea192889-a3be-4cb8-b631-94db17e4c836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Services">
+      <UniqueIdentifier>{bacdc27a-c3e7-4598-8240-4e49be28b5af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Utils">
+      <UniqueIdentifier>{82540838-3c37-4804-bbe0-2458953b2482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Utils">
+      <UniqueIdentifier>{f47bbd58-90cf-4856-b071-9005383e7202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Model">
+      <UniqueIdentifier>{1ccf29f5-e320-4f25-9dfa-698095fa9335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Interface">
+      <UniqueIdentifier>{6307648c-86bf-4436-9bde-397f7cc48c44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">

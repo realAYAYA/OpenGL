@@ -25,7 +25,7 @@ Camera::~Camera() {
 }
 
 glm::mat4 Camera::GetViewMarix() {
-	//LookAt��������������ֱ������������ᴴ��һ������(Look at)����Ŀ��Ĺ۲����
+	// The glm::LookAt function requires a position, target and up vector respectively.
 	return glm::lookAt(Position, Position + Forward, WorldUp);
 }
 
@@ -44,5 +44,5 @@ void Camera::ProcessMouseMovement(float deltaX, float deltaY) {
 }
 
 void Camera::UpdateCameraPos() {
-	Position += Forward * SpeedZ * 0.005f - Right * SpeedX * 0.005f + Up * SpeedY * 0.005f;
+	Position += Forward * SpeedZ * 0.05f - Right * SpeedX * 0.05f + Up * SpeedY * 0.05f;
 }

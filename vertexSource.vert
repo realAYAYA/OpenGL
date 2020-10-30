@@ -3,7 +3,8 @@ layout(location = 0) in vec3 aPos;
 layout(location = 1) in vec3 aNormal;
 layout(location = 2) in vec2 aTexCoord;
 
-//uniform mat4 transform;
+// Uniforms are another way to pass data from our application on the CPU to the shaders on the GPU.
+// uniform mat4 transform;
 uniform mat4 modelMat;
 uniform mat4 viewMat;
 uniform mat4 projMat;

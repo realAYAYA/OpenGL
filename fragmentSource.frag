@@ -39,6 +39,7 @@ struct LightSpot{
     float cosPhyOutter;
 };
 
+// Uniforms are another way to pass data from our application on the CPU to the shaders on the GPU.
 uniform Material material;
 uniform LightDirectional lightD;
 uniform LightPoint lightP0;
@@ -127,4 +128,5 @@ void main() {
     finalResult += CalcLightSpot(lightS,uNormal,dirToCamera);
 
     FragColor = vec4(finalResult,1.0f);
+    //FragColor = vec4(1.0f,1.0f,1.0f,1.0f);
 }

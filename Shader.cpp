@@ -58,10 +58,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 		glLinkProgram(ID);
 		checkCompileErrors(ID, "PROGRAM");
 
-		//我自己用来检测shader输出的
-		//std::cout << vertexSource << std::endl << fragmentSource << std::endl << ID << std::endl;
-
-		//记得delete掉
+		// Don't forget to delete the shader objects once we've linked them into the program object
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
 	}

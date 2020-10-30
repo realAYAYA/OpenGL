@@ -67,7 +67,6 @@ float vertices[] = {
     -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 };
-//����������λ��
 glm::vec3 cubePositions[] = {
   glm::vec3(0.0f,  0.0f,  0.0f),
   glm::vec3(2.0f,  5.0f, -15.0f),
@@ -80,11 +79,10 @@ glm::vec3 cubePositions[] = {
   glm::vec3(1.5f,  0.2f, -1.5f),
   glm::vec3(-1.3f,  1.0f, -1.5f)
 };
+//Mesh Cube(vertices);
 #pragma endregion
 
 #pragma region Camera Declare
-//Instantiate Camera class
-//Camera camera(glm::vec3(0,0,3.0f),glm::vec3(0,0,0),glm::vec3(0,1.0f,0));
 Camera camera(glm::vec3(0, 0, 3.0f), glm::radians(-15.0f), glm::radians(180.0f), glm::vec3(0, 1.0f, 0));
 #pragma endregion
 
@@ -114,13 +112,11 @@ float lastX, lastY;//��¼����ϴ�����
 bool firstMouse = true;//����Ƿ��һ��������꣬�Ͼ�û�г�ʼ��
 #pragma endregion
 
-//���û��������ڴ�Сʱ��ҲӦ�����ӿ�
+// The moment a user resizes the window the viewport should be adjusted as well
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-//�����Ļ����
 void processInput(GLFWwindow* window);
 
-//��귴��
 void mouse_callback(GLFWwindow* window, double xPos, double yPos);
 
 unsigned int LoadImageToGPU(const char* filename, GLint internalFormat, GLenum format, int textureSlot);
@@ -135,7 +131,7 @@ int main(int argc,char *argv[]) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);//ʹ��mac����ʱʹ��
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);// Open it in MAC OS X
 
     //Open GLFW Window
     GLFWwindow* window = glfwCreateWindow(800, 600, "My OpenGL Game", NULL, NULL);
@@ -144,7 +140,7 @@ int main(int argc,char *argv[]) {
         glfwTerminate();
         return -1;
     }
-    glfwMakeContextCurrent(window);//����Ϊ���Ӵ���
+    glfwMakeContextCurrent(window);
 
     //Init GLEW
     glewExperimental = true;
@@ -156,18 +152,19 @@ int main(int argc,char *argv[]) {
     glViewport(0, 0, 800, 600);
     cout << "Hello OpenGL!\n";
 
-    //����״̬
     //glEnable(GL_CULL_FACE);
     //glCullFace(GL_BACK);//GL_FRONT
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//�߿�ģʽ���෴GL_FILL���ģʽ
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     stbi_set_flip_vertically_on_load(true);//��תy��
-    glEnable(GL_DEPTH_TEST);//����z����
+    glEnable(GL_DEPTH_TEST);
     #pragma endregion
 
     #pragma region Init Shader Program
-    //������ɫ�������shader
     Shader* testShader = new Shader("vertexSource.vert", "fragmentSource.frag");
     #pragma endregion
+
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window, mouse_callback);
 
     #pragma region Init Material
     Material* myMaterial = new Material(testShader,
@@ -177,36 +174,34 @@ int main(int argc,char *argv[]) {
         32.0f);
     #pragma endregion
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);//�������
-    glfwSetCursorPosCallback(window, mouse_callback);//�������λ������
-
-    #pragma region Init and load Model to VAO,VBO
-    //Mesh cube();
+    #pragma region Init Nanosuit
     Model model(exePath.substr(0, exePath.find_last_of('\\')) + "\\model\\nanosuit.obj");
     #pragma endregion
-
-    // Ϊ��ǰ�󶨵�����������û��ơ����˷�ʽ
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     #pragma region Prepare MVP matrices
     //calculate our transformation matrix here
     glm::mat4 modelMat;
     glm::mat4 viewMat;
     glm::mat4 projMat;
-    //͸��ͶӰ������ԽԶͼ��ԽС�������ܲ������Žǣ����泤��ȣ���ƽ��ľ��룬Զƽ��ģ�
+    /* 
+    |Due to perspective the lines seem to coincide at a far enough distance.
+    |This is exactly the effect perspective projection tries to mimic and it does so using a perspective projection matrix.
+    |The projection matrix maps a given frustum range to clip space, but also manipulates the w value of each vertex coordinate
+    |in such a way that the further away a vertex coordinate is from the viewer, the higher this w component becomes.
+    |Its first parameter defines the fov value, that stands for field of view and sets how large the viewspace is.
+    |The second parameter sets the aspect ratio which is calculated by dividing the viewport's width by its height.
+    |The third and fourth parameter set the near and far plane of the frustum. Usually set 0.1 and 100.0.
+    */
     projMat = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
     #pragma endregion
 
     while (!glfwWindowShouldClose(window)) {
-        //Process Input
+        //Process Input linsenter
         processInput(window);
 
         //Clear Screen
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//���z����
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         viewMat = camera.GetViewMarix();
 
@@ -215,18 +210,15 @@ int main(int argc,char *argv[]) {
             modelMat = glm::translate(glm::mat4(1.0f), cubePositions[i]);
 
             //Set View and Projection Matrices here if you want
-            //
 
-            //����ϵͳʱ�䲢��ͼ����ת
             //float angle = 20.0f * i;
             //modelMat = glm::rotate(modelMat, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
             //float timeValue = glfwGetTime();
             //float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
 
-            //Set Material -> Shader Program
-            testShader->use();
+            testShader->use();// Activite shader program
 
-
+            #pragma region Lights
             glUniformMatrix4fv(glGetUniformLocation(testShader->ID, "modelMat"), 1, GL_FALSE, glm::value_ptr(modelMat));
             glUniformMatrix4fv(glGetUniformLocation(testShader->ID, "viewMat"), 1, GL_FALSE, glm::value_ptr(viewMat));
             glUniformMatrix4fv(glGetUniformLocation(testShader->ID, "projMat"), 1, GL_FALSE, glm::value_ptr(projMat));
@@ -273,6 +265,7 @@ int main(int argc,char *argv[]) {
             glUniform1f(glGetUniformLocation(testShader->ID, "lightS.quadratic"), lightS.quadratic);
             glUniform1f(glGetUniformLocation(testShader->ID, "lightS.cosPhyInner"), lightS.cosPhyInner);
             glUniform1f(glGetUniformLocation(testShader->ID, "lightS.cosPhyOutter"), lightS.cosPhyOutter);
+            #pragma endregion
 
             glUniform3f(glGetUniformLocation(testShader->ID, "cameraPos"), camera.Position.x, camera.Position.y, camera.Position.z);
             
@@ -282,11 +275,13 @@ int main(int argc,char *argv[]) {
             myMaterial->shader->SetUniform1f("material.shininess", myMaterial->shininess);
 
             model.Draw(myMaterial->shader);
+            //Cube.Draw_Array(myMaterial->shader);
         }
 
         //Clean up,prepare for next render loop
+        glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);// Tell GLFW we want to call this function on every window resize by registering it
+        glfwSwapBuffers(window);// Update window
         glfwPollEvents();
-        glfwSwapBuffers(window);
         camera.UpdateCameraPos();
     }
 
