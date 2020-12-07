@@ -28,7 +28,6 @@ void Model::loadModel(string path)
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
 	// ����ڵ����е���������еĻ���
-	std::cout << node->mName.data << std::endl;
 	for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 		aiMesh* curMesh = scene->mMeshes[node->mMeshes[i]];// Actrully,it is just a pointer
 		meshes.push_back(processMesh(curMesh, scene));
