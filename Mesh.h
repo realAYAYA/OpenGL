@@ -21,16 +21,18 @@ struct Texture {
 	aiString path;
 };
 
+using std::vector;
+
 class Mesh
 {
 public:
 	Mesh() {};
-	Mesh(GLfloat _vertices[], GLuint _indices[]);
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+	Mesh(vector<GLfloat> _vertices, vector<GLuint> _indices);
+	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
 	~Mesh() {};
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
-	std::vector<Texture> textures;
+	vector<Vertex> vertices;
+	vector<unsigned int> indices;
+	vector<Texture> textures;
 
 	void Draw(Shader* shader);
 	void Draw_Array(Shader* shader);

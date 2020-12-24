@@ -1,4 +1,6 @@
 #include "Camera.h"
+#include<GL/glew.h>
+#include<GLFW/glfw3.h>
 
 Camera::Camera(glm::vec3 position, glm::vec3 target, glm::vec3 worldup) {
 	Position = position;
@@ -45,4 +47,38 @@ void Camera::ProcessMouseMovement(float deltaX, float deltaY) {
 
 void Camera::UpdateCameraPos() {
 	Position += Forward * SpeedZ * 0.05f - Right * SpeedX * 0.05f + Up * SpeedY * 0.05f;
+}
+
+void Camera::processInput(GLFWwindow* window)
+{
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, true);
+    }
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+        SpeedZ = 1.0f;
+    }
+    else if (glfwGetKey(window, GLFW_KEY_S)) {
+        SpeedZ = -1.0f;
+    }
+    else {
+        SpeedZ = 0;
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+        SpeedX = 1.0f;
+    }
+    else if (glfwGetKey(window, GLFW_KEY_D)) {
+        SpeedX = -1.0f;
+    }
+    else {
+        SpeedX = 0;
+    }
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        SpeedY = 1.0f;
+    }
+    else if (glfwGetKey(window, GLFW_KEY_X)) {
+        SpeedY = -1.0f;
+    }
+    else {
+        SpeedY = 0;
+    }
 }

@@ -11,12 +11,16 @@
 class Skybox
 {
 public:
-	Skybox(GLfloat const vertices[], std::vector<string>& faces);// Draw Array,CubemapTexture
-	GLuint LoadCubemap(std::vector<string>& faces);
-	void Draw(Shader* shader, glm::mat4 const& view, glm::mat4 const& projection);
+	Skybox(std::vector<GLfloat> _vertices, std::vector<string>& _faces);// Draw Array,CubemapTexture
+	GLuint GettextureID() { return this->textureID; };
+	void stepMesh();
+	void LoadCubemap(std::vector<string>& faces);
+	void Draw(Shader* shader, glm::mat4 view, glm::mat4 projection);
 	~Skybox() {};
 private:
-	GLuint cubemapTexture;// If possible.
-	unsigned int VAO, VBO;
+	GLuint textureID;// If possible.
+	GLuint VAO, VBO;
+	std::vector<GLfloat> vertices;
+	std::vector<string> faces;
 };
 

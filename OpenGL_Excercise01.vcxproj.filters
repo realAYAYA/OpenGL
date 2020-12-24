@@ -63,6 +63,12 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="test1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -113,11 +119,8 @@
     <ClInclude Include="Skybox.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="datasource.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="helper.h">
+      <Filter>头文件\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

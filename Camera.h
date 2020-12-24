@@ -1,4 +1,5 @@
 #pragma once
+#define GLEW_STATIC
 
 #include<glm.hpp>
 #include<gtc/matrix_transform.hpp>
@@ -26,6 +27,9 @@ public:
 	glm::mat4 GetViewMarix();
 	void ProcessMouseMovement(float deltaX, float deltaY);
 	void UpdateCameraPos();
+
+	/* Input helper*/
+	void processInput(class GLFWwindow* window);
 
 private:
 	void UpdateCameraVectors();
