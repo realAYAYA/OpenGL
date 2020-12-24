@@ -55,11 +55,11 @@ uniform vec3 cameraPos;
 out vec4 FragColor;
 
 vec3 CalcLightDirectional(LightDirectional light,vec3 uNormal,vec3 dirToCamera){
-    //diffuse max(dot(L,N),0)
+    // diffuse max(dot(L,N),0)
     float diffIntensity = max(dot(light.dirToLight,uNormal),0);
     vec3 diffColor = diffIntensity * light.color * texture(material.diffuse,TexCoord).rgb;
     
-    //specular pow(max(dot(R,Camera),),shininess)
+    // specular pow(max(dot(R,Camera),),shininess)
     vec3 R = normalize(reflect(-light.dirToLight,uNormal));
     float specIntensity = pow(max(dot(R,dirToCamera),0),material.shininess);
     vec3 specColor = specIntensity * light.color * texture(material.specular,TexCoord).rgb;

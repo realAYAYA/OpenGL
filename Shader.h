@@ -22,11 +22,11 @@ public:
 	};
 
 	void use();
-	//将glm的shader接口封装进去
+	// 
 	void SetUniform3f(const char* paramNameString, glm::vec3 param);
 	void SetUniform1f(const char* paramNameString, float param);
 	void SetUniform1i(const char* paramNameString, int slot);
 private:
-	//shader编译检测
+	// 
 	void checkCompileErrors(unsigned int ID,string type);
 };

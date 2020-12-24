@@ -1,7 +1,7 @@
 #include "Shader.h"
 #include<iostream>
 #include<fstream>
-#include<sstream>//这个头文件专门用来处理string字符串的，具体查书
+#include<sstream>// 
 
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
@@ -19,7 +19,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 	vertexFile.open(vertexPath);
 	fragmentFile.open(fragmentPath);
 	
-	//防止数据提取失败或硬件出错导致打开失败，详情查看C++异常
+	// 
 	vertexFile.exceptions(ifstream::failbit || ifstream::badbit);
 	fragmentFile.exceptions(ifstream::failbit || ifstream::badbit);
 
@@ -27,19 +27,19 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 		if (!vertexFile.is_open()||!fragmentFile.is_open())
 			throw exception("open file error.\n");
 
-		//将文件流读取
+		// 
 		vertexSStream << vertexFile.rdbuf();
 		fragmentSStream << fragmentFile.rdbuf();
 
-		//将文件内容转换为字符串格式
+		// 
 		vertexString = vertexSStream.str();
 		fragmentString = fragmentSStream.str();
 
-		//可以将string字符串转换成C的字符串数组
+		// 
 		vertexSource = vertexString.c_str();
 		fragmentSource = fragmentString.c_str();
 
-		//编译Shader，之前学过
+		// 
 		unsigned int vertex, fragment;
 
 		vertex = glCreateShader(GL_VERTEX_SHADER);

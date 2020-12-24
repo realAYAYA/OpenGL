@@ -23,5 +23,5 @@ public:
 	{
 
 	}
-	~Material();
+	~Material() {};
 };

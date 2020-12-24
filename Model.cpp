@@ -1,5 +1,7 @@
 #include "Model.h"
-#include"stb_image.h"
+//#include"stb_image.h"
+#include<iostream>
+#include"SOIL.h"
 
 Model::Model(string const& path)
 {
@@ -8,6 +10,7 @@ Model::Model(string const& path)
 
 void Model::Draw(Shader* shader)
 {
+	shader->use();
 	for (unsigned int i = 0; i < meshes.size(); i++) {
 		meshes[i].Draw(shader);
 	}
@@ -27,7 +30,7 @@ void Model::loadModel(string path)
 
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
-	// ����ڵ����е���������еĻ���
+	// 
 	for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 		aiMesh* curMesh = scene->mMeshes[node->mMeshes[i]];// Actrully,it is just a pointer
 		meshes.push_back(processMesh(curMesh, scene));
@@ -80,10 +83,8 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		tempTexture.insert(tempTexture.end(), specularMaps.begin(), specularMaps.end());
 	}
 
-	return Mesh(tempVertices, tempIndices, tempTexture);//����Mesh����
+	return Mesh(tempVertices, tempIndices, tempTexture);// 
 }
-
-GLint TextureFromFile(const char* path, string directory);
 
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, string typeName)
 {
@@ -93,15 +94,15 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* material, aiTexture
 		material->GetTexture(type, i, &str);
 		GLboolean skip = false;
 		for (unsigned j = 0; j < textures_loaded.size(); j++) {
-			if (textures_loaded[j].path == str) {//������ع��ˣ��ӻ���ֱ���ó�����
+			if (textures_loaded[j].path == str) {// 
 				textures.push_back(textures_loaded[j]);
 				skip = true;
 				break;
 			}
 		}
-		if (!skip) {//���û�м��ع�
+		if (!skip) {// 
 			Texture texture;
-			texture.id = TextureFromFile(str.C_Str(), this->directory);//����һ����������������ID
+			texture.id = TextureFromFile(str.C_Str(), this->directory);// 
 			texture.type = typeName;
 			texture.path = str;
 			textures.push_back(texture);
@@ -111,7 +112,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* material, aiTexture
 	return textures;
 }
 
-GLint TextureFromFile(const char* path, string directory)
+GLint Model::TextureFromFile(const char* path, string directory)
 {
 	// Generate texture ID and load texture data 
 	string filename = string(path);
@@ -120,7 +121,7 @@ GLint TextureFromFile(const char* path, string directory)
 	glGenTextures(1, &textureID);// Assign texture to ID
 
 	int width, height,nrChannel;
-	unsigned char* image = stbi_load(filename.c_str(), &width, &height,&nrChannel,0);
+	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
 	if (image) {
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
@@ -137,7 +138,7 @@ GLint TextureFromFile(const char* path, string directory)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	stbi_image_free(image);
+	SOIL_free_image_data(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return textureID;
 }

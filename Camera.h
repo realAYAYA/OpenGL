@@ -19,7 +19,7 @@ public:
 	float Yaw;
 	float SenseX = 0.001f;
 	float SenseY = 0.001f;
-	float SpeedZ = 0;//����ʵ�ʲ��ԣ���Ļ����-z����Ļ����+z,���ԣ��������ֹ���,��Ϊ+x,��Ϊ-x
+	float SpeedZ = 0;
 	float SpeedX = 0;
 	float SpeedY = 0;
 
