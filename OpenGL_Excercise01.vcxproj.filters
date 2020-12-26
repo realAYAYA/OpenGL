@@ -122,6 +122,9 @@
     <ClInclude Include="helper.h">
       <Filter>头文件\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>头文件\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="container.jpg">

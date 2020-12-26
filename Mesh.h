@@ -27,7 +27,7 @@ class Mesh
 {
 public:
 	Mesh() {};
-	Mesh(vector<GLfloat> _vertices, vector<GLuint> _indices);
+	Mesh(vector<GLfloat> const& _vertices, vector<GLuint> const& _indices);
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
 	~Mesh() {};
 	vector<Vertex> vertices;

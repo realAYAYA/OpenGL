@@ -16,11 +16,8 @@ out vec3 Normal;
 out vec2 TexCoord;
 
 void main(){
-       // 
        gl_Position = projMat * viewMat * modelMat * vec4(aPos,1.0);
-       FragPos = (modelMat * vec4(aPos.xyz,1.0)).xyz;
+       FragPos = vec3(modelMat * vec4(aPos.xyz,1.0));
        Normal = mat3(transpose(inverse(modelMat))) * aNormal;
        TexCoord = aTexCoord;
-       //vertexColor = vec4(aColor,1.0);
-       //TexCoord = aTexCoord;
 }

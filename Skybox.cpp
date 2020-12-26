@@ -2,7 +2,7 @@
 #include<iostream>
 #include"SOIL.h"
 
-Skybox::Skybox(std::vector<GLfloat> _vertices, std::vector<string>& _faces)
+Skybox::Skybox(std::vector<GLfloat>const& _vertices, std::vector<string>& _faces)
 {
 	vertices = _vertices;
 	stepMesh();
@@ -27,7 +27,6 @@ void Skybox::LoadCubemap(std::vector<string>& faces)
 	glGenTextures(1, &textureID);
 
 	int width, height;
-	unsigned char* image;
 
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
 	for (GLuint i = 0; i < faces.size(); i++)
@@ -36,8 +35,6 @@ void Skybox::LoadCubemap(std::vector<string>& faces)
 		if (image) {
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 			SOIL_free_image_data(image);
-			std::cout << faces[i] << std::endl;
-			std::cout << textureID << std::endl;
 		}
 		else
 		{

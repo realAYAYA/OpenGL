@@ -91,6 +91,11 @@ void Shader::checkCompileErrors(unsigned int ID, string type) {
 	}
 }
 
+void Shader::SetUniform4f(const char* paramNameString, glm::mat4 param)
+{
+	glUniformMatrix4fv(glGetUniformLocation(ID, paramNameString), 1, GL_FALSE, glm::value_ptr(param));
+}
+
 void Shader::SetUniform3f(const char* paramNameString, glm::vec3 param)
 {
 	glUniform3f(glGetUniformLocation(ID, paramNameString), param.x, param.y, param.z);

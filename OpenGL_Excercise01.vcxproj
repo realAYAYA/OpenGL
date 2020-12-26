@@ -176,6 +176,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="helper.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="LightDirectional.h" />
     <ClInclude Include="LightPoint.h" />
     <ClInclude Include="LightSpot.h" />

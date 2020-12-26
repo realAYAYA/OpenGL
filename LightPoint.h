@@ -1,13 +1,13 @@
 #pragma once
-
+#include "Light.h"
 #include <glm.hpp>
 //#include <gtc/matrix_transform.hpp>
 #include<gtx/rotate_vector.hpp>// 
-
-class LightPoint
+class Shader;
+class LightPoint:public Light
 {
 public:
-	LightPoint(glm::vec3 _position, glm::vec3 _angles, glm::vec3 _color = glm::vec3(1.0f, 1.0f, 1.0f));
+	LightPoint(std::string _name, glm::vec3 _position, glm::vec3 _angles, glm::vec3 _color = glm::vec3(1.0f, 1.0f, 1.0f));
 	~LightPoint() {};
 
 	glm::vec3 position;// 
@@ -16,6 +16,7 @@ public:
 	glm::vec3 color;
 
 	void UpdateDirection();
+	void active(Shader* shader)const;
 
 	float constant = 1.0f;
 	float linear = 0.7f;

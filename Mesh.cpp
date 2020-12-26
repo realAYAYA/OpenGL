@@ -1,6 +1,6 @@
 #include "Mesh.h"
 #include<iostream>
-Mesh::Mesh(vector<GLfloat> _vertices, vector<GLuint> _indices)
+Mesh::Mesh(vector<GLfloat>const& _vertices, vector<GLuint>const& _indices)
 {
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -35,13 +35,15 @@ void Mesh::Draw(Shader* shader)
 		glActiveTexture(GL_TEXTURE0 + i);
 		if (textures[i].type == "texture_diffuse")
 		{
-			shader->SetUniform1i("material.diffuse", 0);
-			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+			shader->SetUniform1i("material.diffuse", i);
 		}
 		else if (textures[i].type == "texture_specular") {
-			shader->SetUniform1i("material.specular", 1);
-			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+			shader->SetUniform1i("material.specular", i);
 		}
+		else if (textures[i].type == "texture_reflection") {
+			shader->SetUniform1i("material.specular", i);
+		}
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
 	// Draw
 	glBindVertexArray(VAO);

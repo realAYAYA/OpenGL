@@ -10,7 +10,7 @@ Model::Model(string const& path)
 
 void Model::Draw(Shader* shader)
 {
-	shader->use();
+	//shader->use();
 	for (unsigned int i = 0; i < meshes.size(); i++) {
 		meshes[i].Draw(shader);
 	}
@@ -120,7 +120,7 @@ GLint Model::TextureFromFile(const char* path, string directory)
 	GLuint textureID;
 	glGenTextures(1, &textureID);// Assign texture to ID
 
-	int width, height,nrChannel;
+	int width, height;
 	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
 	if (image) {
 		glBindTexture(GL_TEXTURE_2D, textureID);

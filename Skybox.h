@@ -11,7 +11,7 @@
 class Skybox
 {
 public:
-	Skybox(std::vector<GLfloat> _vertices, std::vector<string>& _faces);// Draw Array,CubemapTexture
+	Skybox(std::vector<GLfloat>const& _vertices, std::vector<string>& _faces);// Draw Array,CubemapTexture
 	GLuint GettextureID() { return this->textureID; };
 	void stepMesh();
 	void LoadCubemap(std::vector<string>& faces);
