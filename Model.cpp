@@ -1,19 +1,57 @@
 #include "Model.h"
-//#include"stb_image.h"
 #include<iostream>
+
 #include"SOIL.h"
+
+#include"Shader.h"
+#include"Mesh.h"
 
 Model::Model(string const& path)
 {
 	loadModel(path);
 }
 
-void Model::Draw(Shader* shader)
+void Model::Draw(Shader* shader, const glm::mat4& modelMat, const glm::mat4& viewMat, const glm::mat4& projMat)
 {
-	//shader->use();
+	shader->use();
+
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);// 1st. Render pass, draw objects as normal, filling the stencil buffer
+	glStencilMask(0xFF);
+
+	/* Set View and Projection Matrices here if you want*/
+	shader->SetUniform4f("modelMat", modelMat);
+	shader->SetUniform4f("viewMat", viewMat);
+	shader->SetUniform4f("projMat", projMat);
+
+	shader->SetUniform1f("material.shininess", 32.0f);
 	for (unsigned int i = 0; i < meshes.size(); i++) {
 		meshes[i].Draw(shader);
 	}
+}
+
+void Model::DrawOutlining(Shader* shader, const glm::mat4& modelMat, const glm::mat4& viewMat, const glm::mat4& projMat)
+{
+	/* 2nd. Render pass, now draw slightly scaled versions of the objects, this time disabling stencil writing.
+		|Because stencil buffer is now filled with several 1s. The parts of the buffer that are 1 are now not drawn,
+		|thus only drawing the objects' size differences, making it look like borders.*/
+	glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+	glStencilMask(0x00);
+	glDisable(GL_DEPTH_TEST);
+	shader->use();
+
+	GLfloat scale = 1.1;
+	shader->SetUniform4f("viewMat", viewMat);
+	shader->SetUniform4f("projMat", projMat);
+	glm::mat4 model = modelMat;
+	model = glm::scale(model, glm::vec3(scale, scale, scale));
+	shader->SetUniform4f("modelMat", model);
+
+	for (unsigned int i = 0; i < meshes.size(); i++) {
+		meshes[i].Draw(shader);
+	}
+
+	glStencilMask(0xFF);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void Model::loadModel(string path)

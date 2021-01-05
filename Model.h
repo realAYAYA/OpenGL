@@ -1,11 +1,8 @@
 #pragma once
 #include<vector>
 #include<string>
-#include"Mesh.h"
 
-#include<assimp/Importer.hpp>
-#include<assimp/scene.h>
-#include<assimp/postprocess.h>
+#include"Mesh.h"
 
 using std::string;
 
@@ -17,7 +14,8 @@ public:
 
 	std::vector<Mesh> meshes;
 	std::string directory;
-	void Draw(Shader* shader);
+	void Draw(Shader* shader, const glm::mat4& modelMat, const glm::mat4& viewMat, const glm::mat4& projMat);
+	void DrawOutlining(Shader* shader, const glm::mat4& modelMat, const glm::mat4& viewMat, const glm::mat4& projMat);
 private:
 	std::vector<Texture> textures_loaded;// 通过设置容器来缓存已载入的材质数据，以获得巨大优化提升
 	void loadModel(string path);

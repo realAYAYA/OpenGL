@@ -1,5 +1,5 @@
 #include "Mesh.h"
-#include<iostream>
+#include"Shader.h"
 Mesh::Mesh(vector<GLfloat>const& _vertices, vector<GLuint>const& _indices)
 {
 	glGenVertexArrays(1, &VAO);

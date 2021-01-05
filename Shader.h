@@ -12,7 +12,9 @@ public:
 	Shader(const char* vertexPath, const char* fragmentPath);
 	string vertexString;
 	string fragmentString;
+	string gsString;
 	const char* vertexSource;
+	const char* gsSource;
 	const char* fragmentSource;
 	unsigned int ID;		//Shader Program ID
 

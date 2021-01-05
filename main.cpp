@@ -19,7 +19,6 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 
-
 using std::cout;
 using std::endl;
 
@@ -155,7 +154,7 @@ int main(int argc,char *argv[]) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);// Open it in MAC OS X
 
-    //Open GLFW Window
+    // Open GLFW Window
     GLFWwindow* window = glfwCreateWindow(800, 600, "My OpenGL Game", NULL, NULL);
     if (window == NULL) {
         printf("Open window failed.\n");
@@ -174,31 +173,28 @@ int main(int argc,char *argv[]) {
     glViewport(0, 0, 800, 600);
     cout << "Hello OpenGL!\n";
 
-    //glEnable(GL_CULL_FACE);
-    //glCullFace(GL_BACK);// GL_FRONT
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    // Set the required callback functions
-    glfwSetCursorPosCallback(window, mouse_callback);
-
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
+    glEnable(GL_CULL_FACE);// Face culling
+    glCullFace(GL_BACK);// GL_FRONT
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    #pragma endregion
+    glEnable(GL_STENCIL_TEST);
+    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
+    glfwSetCursorPosCallback(window, mouse_callback);// Set the required callback functions
+
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    #pragma endregion
 
     #pragma region Init Shader Program
     Shader* ModelShader = new Shader("vertexSource.vert", "fragmentSource.frag");
     Shader* skyboxShader = new Shader("skybox.vert", "skybox.frag");
+    Shader* shaderSingleColor = new Shader("vertexSource.vert", "shaderSingleColor.frag");
     #pragma endregion
 
     #pragma region Init Material
-    Material* myMaterial = new Material(ModelShader,
-        LoadImageToGPU("container2.png", GL_RGBA, GL_RGBA, Shader::DIFFUSE),
-        LoadImageToGPU("container2_specular.png", GL_RGBA, GL_RGBA, Shader::SPECULAR),
-        glm::vec3(1.0f, 1.0f, 1.0f),
-        32.0f);
     #pragma endregion
 
     #pragma region Init Models
@@ -240,22 +236,18 @@ int main(int argc,char *argv[]) {
         glfwPollEvents();
         /* Clear Screen*/
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
         viewMat = camera.GetViewMarix();
 
-        for (int i = 0; i < 1; i++) {
-            /* Set View and Projection Matrices here if you want*/
-            //modelMat = glm::translate(glm::mat4(1.0f), cubePositions[i]);// Set Model matrix
-            ModelShader->use();
-            ModelShader->SetUniform4f("modelMat", modelMat);
-            ModelShader->SetUniform4f("viewMat", viewMat);
-            ModelShader->SetUniform4f("projMat", projMat);
+        /* Draw most things as normal, we only care about the Outline things. The others should NOT fill the stencil buffer so we set its mask to 0x00*/
+        glStencilMask(0x00);
 
-            /* Camera position*/
-            ModelShader->SetUniform3f("cameraPos", camera.Position);
+        for (int i = 0; i < 1; i++) {
+            //modelMat = glm::translate(glm::mat4(1.0f), cubePositions[i]);// Set Model matrix
 
             #pragma region Lights
+            ModelShader->use();
             glUniform3f(glGetUniformLocation(ModelShader->ID, "objColor"), 1.0f, 1.0f, 1.0f);
             glUniform3f(glGetUniformLocation(ModelShader->ID, "ambienColor"), 0.1f, 0.1f, 0.1f);
             
@@ -267,12 +259,12 @@ int main(int argc,char *argv[]) {
             lightS.active(ModelShader);
             #pragma endregion
 
-            //myMaterial->shader->SetUniform1i("material.diffuse", Shader::DIFFUSE);
-            //myMaterial->shader->SetUniform1i("material.specular", Shader::SPECULAR);
-            //myMaterial->shader->SetUniform3f("material.ambient", myMaterial->ambient);
-            myMaterial->shader->SetUniform1f("material.shininess", myMaterial->shininess);
+            /* Camera position*/
+            ModelShader->SetUniform3f("cameraPos", camera.Position);
 
-            model.Draw(myMaterial->shader);
+            
+            model.Draw(ModelShader, modelMat, viewMat, projMat);
+            //model.DrawOutlining(shaderSingleColor, modelMat, viewMat, projMat);// 未能解决描边与天空盒的冲突
             skybox.Draw(skyboxShader, viewMat, projMat);
         }
         
@@ -283,7 +275,7 @@ int main(int argc,char *argv[]) {
         glfwSwapBuffers(window);// Update window
     }
 
-    //Exit Program
+    // Exit Program
     glfwTerminate();// End
 
     delete ModelShader;

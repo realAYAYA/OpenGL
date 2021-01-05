@@ -2,8 +2,8 @@
 #include<glm.hpp>
 #include<string>
 #include<vector>
+
 #include<gl/glew.h>
-#include"Shader.h"
 
 #include<assimp/Importer.hpp>
 #include<assimp/scene.h>
@@ -23,6 +23,7 @@ struct Texture {
 
 using std::vector;
 
+class Shader;
 class Mesh
 {
 public:
