@@ -31,6 +31,12 @@
     <Filter Include="头文件\Interface">
       <UniqueIdentifier>{6307648c-86bf-4436-9bde-397f7cc48c44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="资源文件\Shader">
+      <UniqueIdentifier>{c9c52227-221e-49fa-b416-1a14e23c6ce2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\pic">
+      <UniqueIdentifier>{aa9c56ac-9235-4d20-9299-a58b795ed207}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -66,29 +72,32 @@
     <ClCompile Include="test1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Framebuffers.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="fragmentSource.frag">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="vertexSource.vert">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="skybox.vert">
-      <Filter>资源文件</Filter>
+    <None Include="shaderSingleColor.frag">
+      <Filter>资源文件\Shader</Filter>
     </None>
     <None Include="skybox.frag">
-      <Filter>资源文件</Filter>
+      <Filter>资源文件\Shader</Filter>
     </None>
-    <None Include="test.vert">
-      <Filter>资源文件</Filter>
+    <None Include="skybox.vert">
+      <Filter>资源文件\Shader</Filter>
     </None>
     <None Include="test.frag">
-      <Filter>资源文件</Filter>
+      <Filter>资源文件\Shader</Filter>
     </None>
-    <None Include="shaderSingleColor.frag">
-      <Filter>资源文件</Filter>
+    <None Include="test.vert">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="vertexSource.vert">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="fragmentSource.frag">
+      <Filter>资源文件\Shader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -125,25 +134,25 @@
     <ClInclude Include="Light.h">
       <Filter>头文件\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="Framebuffers.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="container.jpg">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="pic.jpg">
-      <Filter>资源文件</Filter>
-    </Image>
     <Image Include="awesomeface.png">
-      <Filter>资源文件</Filter>
+      <Filter>资源文件\pic</Filter>
+    </Image>
+    <Image Include="container.jpg">
+      <Filter>资源文件\pic</Filter>
     </Image>
     <Image Include="container2.png">
-      <Filter>资源文件</Filter>
+      <Filter>资源文件\pic</Filter>
     </Image>
     <Image Include="container2_specular.png">
-      <Filter>资源文件</Filter>
+      <Filter>资源文件\pic</Filter>
     </Image>
-    <Image Include="bitmap1.bmp">
-      <Filter>资源文件</Filter>
+    <Image Include="pic.jpg">
+      <Filter>资源文件\pic</Filter>
     </Image>
   </ItemGroup>
 </Project>

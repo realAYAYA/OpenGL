@@ -146,6 +146,12 @@ LightSpot lightS(std::string("lightS"), glm::vec3(0, 5.0f, 0),
     glm::vec3(10.0f, 10.0f, 10.0f));
 #pragma endregion
 
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
+
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
 int main(int argc,char *argv[]) {
     #pragma region Open a Window and configure
     glfwInit();

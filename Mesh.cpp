@@ -29,6 +29,12 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
 	setupMesh();
 }
 
+Mesh::~Mesh()
+{
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+}
+
 void Mesh::Draw(Shader* shader)
 {
 	for (unsigned int i = 0; i < textures.size(); i++) {

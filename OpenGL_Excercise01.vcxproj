@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Framebuffers.cpp" />
     <ClCompile Include="LightDirectional.cpp" />
     <ClCompile Include="LightPoint.cpp" />
     <ClCompile Include="LightSpot.cpp" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Framebuffers.h" />
     <ClInclude Include="helper.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightDirectional.h" />
@@ -188,7 +190,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="awesomeface.png" />
-    <Image Include="bitmap1.bmp" />
     <Image Include="container.jpg" />
     <Image Include="container2.png" />
     <Image Include="container2_specular.png" />
