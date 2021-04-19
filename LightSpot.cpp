@@ -24,14 +24,14 @@ void LightSpot::UpdateDirection()
 
 void LightSpot::active(Shader* shader)const
 {
-	shader->SetUniform3f((name + std::string(".pos")).c_str(), position);
-	shader->SetUniform3f((name + std::string(".dirToLight")).c_str(), direction);
-	shader->SetUniform3f((name + std::string(".color")).c_str(), color);
-	shader->SetUniform1f((name + std::string(".linear")).c_str(), linear);
-	shader->SetUniform1f((name + std::string(".constant")).c_str(), constant);
-	shader->SetUniform1f((name + std::string(".quadratic")).c_str(), quadratic);
-	shader->SetUniform1f((name + std::string(".cosPhyInner")).c_str(), cosPhyInner);
-	shader->SetUniform1f((name + std::string(".cosPhyOutter")).c_str(), cosPhyOutter);
+	shader->setVec3((name + std::string(".pos")).c_str(), position);
+	shader->setVec3((name + std::string(".dirToLight")).c_str(), direction);
+	shader->setVec3((name + std::string(".color")).c_str(), color);
+	shader->setFloat((name + std::string(".linear")).c_str(), linear);
+	shader->setFloat((name + std::string(".constant")).c_str(), constant);
+	shader->setFloat((name + std::string(".quadratic")).c_str(), quadratic);
+	shader->setFloat((name + std::string(".cosPhyInner")).c_str(), cosPhyInner);
+	shader->setFloat((name + std::string(".cosPhyOutter")).c_str(), cosPhyOutter);
 	//glUniform3f(glGetUniformLocation(ModelShader->ID, "lightS.pos"), lightS.position.x, lightS.position.y, lightS.position.z);
 	//glUniform3f(glGetUniformLocation(ModelShader->ID, "lightS.dirToLight"), lightS.direction.x, lightS.direction.y, lightS.direction.z);
 	//glUniform3f(glGetUniformLocation(ModelShader->ID, "lightS.color"), lightS.color.x, lightS.color.y, lightS.color.z);

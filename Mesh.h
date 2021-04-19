@@ -1,4 +1,5 @@
 #pragma once
+#include"Object.h"
 #include<glm.hpp>
 #include<string>
 #include<vector>
@@ -24,20 +25,22 @@ struct Texture {
 using std::vector;
 
 class Shader;
-class Mesh
+class Mesh :Object
 {
 public:
 	Mesh() {};
-	Mesh(vector<GLfloat> const& _vertices, vector<GLuint> const& _indices);
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
 	~Mesh();
+
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
 	vector<Texture> textures;
 
 	void Draw(Shader* shader);
-	void Draw_Array(Shader* shader);
+	void DrawArrays(Shader* shader, const glm::mat4& modelMat);
+	void DrawElements(Shader* shader);
 
+	unsigned int GetVAO()const { return this->VAO; }
 private:
 	unsigned int VAO, VBO, EBO;
 	void setupMesh();

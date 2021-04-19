@@ -11,7 +11,12 @@ Model::Model(string const& path)
 	loadModel(path);
 }
 
-void Model::Draw(Shader* shader, const glm::mat4& modelMat, const glm::mat4& viewMat, const glm::mat4& projMat)
+void Model::SetWorldLocation(const glm::mat4& modelMat)
+{
+	worldLocation = modelMat;
+}
+
+void Model::Draw(Shader* shader)
 {
 	shader->use();
 
@@ -19,11 +24,9 @@ void Model::Draw(Shader* shader, const glm::mat4& modelMat, const glm::mat4& vie
 	glStencilMask(0xFF);
 
 	/* Set View and Projection Matrices here if you want*/
-	shader->SetUniform4f("modelMat", modelMat);
-	shader->SetUniform4f("viewMat", viewMat);
-	shader->SetUniform4f("projMat", projMat);
+	shader->setMat4("model", worldLocation);
 
-	shader->SetUniform1f("material.shininess", 32.0f);
+	//shader->setFloat("material.shininess", 32.0f);
 	for (unsigned int i = 0; i < meshes.size(); i++) {
 		meshes[i].Draw(shader);
 	}
@@ -40,11 +43,11 @@ void Model::DrawOutlining(Shader* shader, const glm::mat4& modelMat, const glm::
 	shader->use();
 
 	GLfloat scale = 1.1;
-	shader->SetUniform4f("viewMat", viewMat);
-	shader->SetUniform4f("projMat", projMat);
+	shader->setMat4("viewMat", viewMat);
+	shader->setMat4("projMat", projMat);
 	glm::mat4 model = modelMat;
 	model = glm::scale(model, glm::vec3(scale, scale, scale));
-	shader->SetUniform4f("modelMat", model);
+	shader->setMat4("modelMat", model);
 
 	for (unsigned int i = 0; i < meshes.size(); i++) {
 		meshes[i].Draw(shader);
@@ -112,13 +115,28 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		}
 	}
 	
-	// Set MaterialTextures
+	// process materials
 	if (mesh->mMaterialIndex >= 0) {
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+		// we assume a convention for sampler names in the shaders. Each diffuse texture should be named
+		// as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
+		// Same applies to other texture as the following list summarizes:
+		// diffuse: texture_diffuseN
+		// specular: texture_specularN
+		// normal: texture_normalN
+
+		// 1. diffuse maps
 		std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
 		tempTexture.insert(tempTexture.end(), diffuseMaps.begin(), diffuseMaps.end());
+		// 2. specular maps
 		std::vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
 		tempTexture.insert(tempTexture.end(), specularMaps.begin(), specularMaps.end());
+		// 3. normal maps
+		std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+		tempTexture.insert(tempTexture.end(), normalMaps.begin(), normalMaps.end());
+		// 4. height maps
+		std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+		tempTexture.insert(tempTexture.end(), heightMaps.begin(), heightMaps.end());
 	}
 
 	return Mesh(tempVertices, tempIndices, tempTexture);// 

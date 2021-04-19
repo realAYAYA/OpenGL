@@ -61,12 +61,14 @@ void Skybox::Draw(Shader* shader, glm::mat4 view, glm::mat4 projection)
 	|so only rotation will affect the skybox's position vectors.
 	*/
 	glm::mat4 view2 = glm::mat4(glm::mat3(view));	// Remove any translation component of the view matrix
-	glUniformMatrix4fv(glGetUniformLocation(shader->ID, "view"), 1, GL_FALSE, glm::value_ptr(view2));
-	glUniformMatrix4fv(glGetUniformLocation(shader->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	shader->setMat4("view", view2);
+	shader->setMat4("projection", projection);
+	//glUniformMatrix4fv(glGetUniformLocation(shader->GetID(), "view"), 1, GL_FALSE, glm::value_ptr(view2));
+	//glUniformMatrix4fv(glGetUniformLocation(shader->GetID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 	// skybox cube
 	glBindVertexArray(VAO);
 	glActiveTexture(GL_TEXTURE0);
-	glUniform1i(glGetUniformLocation(shader->ID, "skybox"), 0);
+	glUniform1i(glGetUniformLocation(shader->GetID(), "skybox"), 0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, GettextureID());
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);

@@ -26,7 +26,7 @@ Camera::~Camera() {
 
 }
 
-glm::mat4 Camera::GetViewMarix() {
+glm::mat4 Camera::GetViewMarix()const {
 	// The glm::LookAt function requires a position, target and up vector respectively.
 	return glm::lookAt(Position, Position + Forward, WorldUp);
 }
@@ -40,45 +40,50 @@ void Camera::UpdateCameraVectors() {
 }
 
 void Camera::ProcessMouseMovement(float deltaX, float deltaY) {
-	Pitch -= deltaY * SenseX;
-	Yaw -= deltaX * SenseY;
+    float temp = Pitch - deltaY * MouseSensitivity;
+    if (temp > 89.0f) {
+        Pitch = 89.0f;
+    }else if (temp < -89.0f) {
+        Pitch = -89.0f;
+    }else{
+        Pitch = temp;
+    }
+
+	Yaw -= deltaX * MouseSensitivity;
 	UpdateCameraVectors();
 }
 
-void Camera::UpdateCameraPos() {
-	Position += Forward * SpeedZ * 0.05f - Right * SpeedX * 0.05f + Up * SpeedY * 0.05f;
+void Camera::ProcessMouseScroll(float yoffset)
+{
+    Zoom -= (float)yoffset;
+    if (Zoom < 1.0f)
+        Zoom = 1.0f;
+    if (Zoom > 45.0f)
+        Zoom = 45.0f;
 }
 
-void Camera::processInput(GLFWwindow* window)
+void Camera::processInput(GLFWwindow* window, const float& deltaTime)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
+    float velocity = MovementSpeed * deltaTime;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        SpeedZ = 1.0f;
+        Position += Forward * velocity;
     }
-    else if (glfwGetKey(window, GLFW_KEY_S)) {
-        SpeedZ = -1.0f;
-    }
-    else {
-        SpeedZ = 0;
+    if (glfwGetKey(window, GLFW_KEY_S)) {
+        Position -= Forward * velocity;
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        SpeedX = 1.0f;
+        Position -= Right * velocity;
     }
-    else if (glfwGetKey(window, GLFW_KEY_D)) {
-        SpeedX = -1.0f;
-    }
-    else {
-        SpeedX = 0;
+    if (glfwGetKey(window, GLFW_KEY_D)) {
+        Position += Right * velocity;
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        SpeedY = 1.0f;
+        Position += Up * velocity;
     }
-    else if (glfwGetKey(window, GLFW_KEY_X)) {
-        SpeedY = -1.0f;
-    }
-    else {
-        SpeedY = 0;
+    if (glfwGetKey(window, GLFW_KEY_X)) {
+        Position -= Up * velocity;
     }
 }

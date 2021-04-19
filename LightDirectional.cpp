@@ -20,7 +20,7 @@ void LightDirectional::UpdateDirection() {
 
 void LightDirectional::active(Shader* shader)const
 {
-	shader->SetUniform3f((name + std::string(".pos")).c_str(), position);
-	shader->SetUniform3f((name + std::string(".dirToLight")).c_str(), direction);
-	shader->SetUniform3f((name + std::string(".color")).c_str(), color);
+	shader->setVec3((name + std::string(".pos")).c_str(), position);
+	shader->setVec3((name + std::string(".dirToLight")).c_str(), direction);
+	shader->setVec3((name + std::string(".color")).c_str(), color);
 }

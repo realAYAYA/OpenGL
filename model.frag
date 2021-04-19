@@ -2,6 +2,7 @@
 in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoord;
+uniform samplerCube skybox;// 将环境贴图载入绘制模型的片段着色器中，用于实现环境贴图技术
 
 struct Material{
     vec3 ambient;
@@ -70,15 +71,15 @@ vec3 CalcLightDirectional(LightDirectional light,vec3 uNormal,vec3 dirToCamera){
 }
 
 vec3 CalcLightPoint(LightPoint light,vec3 uNormal,vec3 dirToCamera){
-    //attenuation
+    // attenuation
     float dist = length(light.pos - FragPos);
     float attenuation = 1/(light.constant + light.linear * dist + light.quadratic * (dist * dist));
 
-    //diffuse
+    // diffuse
     float diffIntensity = max(dot(normalize(light.pos - FragPos),uNormal),0);
     vec3 diffColor = diffIntensity * light.color * texture(material.diffuse,TexCoord).rgb;
     
-    //specular
+    // specular
     vec3 R = normalize(reflect(-normalize(light.pos - FragPos),uNormal));
     float specIntensity = pow(max(dot(R,dirToCamera),0),material.shininess) * attenuation;
     vec3 specColor = specIntensity * light.color * texture(material.specular,TexCoord).rgb;
@@ -88,7 +89,7 @@ vec3 CalcLightPoint(LightPoint light,vec3 uNormal,vec3 dirToCamera){
 }
 
 vec3 CalcLightSpot(LightSpot light,vec3 uNormal,vec3 dirToCamera){
-    //attenuation
+    // attenuation
     float dist = length(light.pos - FragPos);
     float attenuation = 1/(light.constant + light.linear * dist + light.quadratic * (dist * dist));
     float spotRatio;
@@ -100,11 +101,11 @@ vec3 CalcLightSpot(LightSpot light,vec3 uNormal,vec3 dirToCamera){
     }
     else{spotRatio = 0;}
     
-    //diffuse
+    // diffuse
     float diffIntensity = max(dot(normalize(light.pos - FragPos),uNormal),0) * attenuation * spotRatio;
     vec3 diffColor = diffIntensity * light.color * texture(material.diffuse,TexCoord).rgb;
     
-    //specular
+    // specular
     vec3 R = normalize(reflect(-normalize(light.pos - FragPos),uNormal));
     float specIntensity = pow(max(dot(R,dirToCamera),0),material.shininess) * attenuation * spotRatio;
     vec3 specColor = specIntensity * light.color * texture(material.specular,TexCoord).rgb;
@@ -127,6 +128,17 @@ void main() {
     finalResult += CalcLightPoint(lightP3,uNormal,dirToCamera);
     finalResult += CalcLightSpot(lightS,uNormal,dirToCamera);
 
-    FragColor = vec4(finalResult,1.0f);
-    //FragColor = vec4(1.0f,1.0f,1.0f,1.0f);
+    //FragColor = vec4(finalResult,1.0f);
+    /* 环境贴图技术 反射(reflection)和折射(refraction)*/
+    vec4 diffuse_color = texture(material.diffuse, TexCoord);
+    // Reflection
+    vec3 I = normalize(FragPos - cameraPos);
+    vec3 R = reflect(I, normalize(Normal));
+    float reflect_intensity = texture(material.specular, TexCoord).r;
+    vec4 reflect_color;
+    if(reflect_intensity > 0.1) // Only sample reflections when above a certain treshold
+        reflect_color = texture(skybox, R) * reflect_intensity;
+
+    FragColor=diffuse_color+reflect_color;
+
 }

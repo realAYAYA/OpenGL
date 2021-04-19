@@ -1,9 +1,20 @@
 #pragma once
 #include<string>
+
+enum LightType
+{
+	Point,
+	Spot,
+	Directional
+};
+
 class Shader;
+
 class Light
 {
 public:
 	std::string name;
-	virtual void active(Shader* shader)const {} 
+	LightType type;
+	virtual void active(Shader* shader)const {}
+
 };

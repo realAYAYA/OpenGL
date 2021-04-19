@@ -1,24 +1,5 @@
 #include "Mesh.h"
 #include"Shader.h"
-Mesh::Mesh(vector<GLfloat>const& _vertices, vector<GLuint>const& _indices)
-{
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * _vertices.size(), &_vertices[0], GL_STATIC_DRAW);
-
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLfloat) * _indices.size(), &_indices[0], GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-}
 
 Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
 {
@@ -31,8 +12,8 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
 
 Mesh::~Mesh()
 {
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
+	//glDeleteVertexArrays(1, &VAO);
+	//glDeleteBuffers(1, &VBO);
 }
 
 void Mesh::Draw(Shader* shader)
@@ -41,13 +22,16 @@ void Mesh::Draw(Shader* shader)
 		glActiveTexture(GL_TEXTURE0 + i);
 		if (textures[i].type == "texture_diffuse")
 		{
-			shader->SetUniform1i("material.diffuse", i);
+			shader->setInt("texture_diffuse1", i);
 		}
 		else if (textures[i].type == "texture_specular") {
-			shader->SetUniform1i("material.specular", i);
+			shader->setInt("texture_specular1", i);
 		}
-		else if (textures[i].type == "texture_reflection") {
-			shader->SetUniform1i("material.specular", i);
+		else if (textures[i].type == "texture_normal") {
+			shader->setInt("material.normal", i);
+		}
+		else if (textures[i].type == "texture_height") {
+			shader->setInt("material.height", i);
 		}
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
@@ -58,11 +42,25 @@ void Mesh::Draw(Shader* shader)
 	glActiveTexture(GL_TEXTURE0);
 }
 
-void Mesh::Draw_Array(Shader* shader)
+void Mesh::DrawArrays(Shader* shader, const glm::mat4& modelMat)
+{
+	shader->use();
+
+	shader->setMat4("modelMat", modelMat);
+
+	glBindVertexArray(VAO);
+	if (textures.size()) {
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textures[0].id);
+	}
+	glDrawArrays(GL_TRIANGLES, 0, EBO);
+	glBindVertexArray(0);
+}
+
+void Mesh::DrawElements(Shader* shader)
 {
 	shader->use();
 	glBindVertexArray(VAO);
-	//glDrawArrays(GL_TRIANGLES, 0, 3);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }

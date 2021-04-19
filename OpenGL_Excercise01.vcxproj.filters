@@ -25,134 +25,372 @@
     <Filter Include="源文件\Utils">
       <UniqueIdentifier>{f47bbd58-90cf-4856-b071-9005383e7202}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\Model">
-      <UniqueIdentifier>{1ccf29f5-e320-4f25-9dfa-698095fa9335}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Interface">
       <UniqueIdentifier>{6307648c-86bf-4436-9bde-397f7cc48c44}</UniqueIdentifier>
     </Filter>
     <Filter Include="资源文件\Shader">
       <UniqueIdentifier>{c9c52227-221e-49fa-b416-1a14e23c6ce2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="资源文件\pic">
-      <UniqueIdentifier>{aa9c56ac-9235-4d20-9299-a58b795ed207}</UniqueIdentifier>
+    <Filter Include="源文件\AdvencedOpenGL">
+      <UniqueIdentifier>{551cf453-b29e-4d50-9b23-812c8f49727d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\AdvencedLighting">
+      <UniqueIdentifier>{951e758e-6fe7-4abb-91aa-68f82547389d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\Shader\AdvencedOpenGL">
+      <UniqueIdentifier>{720f17d9-325b-40d5-8a5c-b7069a7feeb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\Shader\AdvencedLighting">
+      <UniqueIdentifier>{53add54b-6fa4-4f27-bbde-982aa951cce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\Shader\MyShaders">
+      <UniqueIdentifier>{4f67033b-49e8-47f2-b5fb-68240731df9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Base">
+      <UniqueIdentifier>{093e4d11-f7b7-4796-a3fb-7296674c3279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Base">
+      <UniqueIdentifier>{c3a851ee-aa62-4a1d-9fb8-ff98ac4c97ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LightManager.cpp">
+      <Filter>源文件\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>源文件\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
+      <Filter>源文件\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="main_blend.cpp">
+      <Filter>源文件\AdvencedOpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="main_fbo.cpp">
+      <Filter>源文件\AdvencedOpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="main_glsl.cpp">
+      <Filter>源文件\AdvencedOpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="main_gs.cpp">
+      <Filter>源文件\AdvencedOpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="main_instance.cpp">
+      <Filter>源文件\AdvencedOpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="BlinnPhong.cpp">
+      <Filter>源文件\AdvencedLighting</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMapping.cpp">
+      <Filter>源文件\AdvencedLighting</Filter>
+    </ClCompile>
+    <ClCompile Include="PointShadow.cpp">
+      <Filter>源文件\AdvencedLighting</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalMapping.cpp">
+      <Filter>源文件\AdvencedLighting</Filter>
+    </ClCompile>
+    <ClCompile Include="ParallaxMapping.cpp">
+      <Filter>源文件\AdvencedLighting</Filter>
+    </ClCompile>
+    <ClCompile Include="HDR.cpp">
+      <Filter>源文件\AdvencedLighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Bloom.cpp">
+      <Filter>源文件\AdvencedLighting</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredShading.cpp">
+      <Filter>源文件\AdvencedLighting</Filter>
+    </ClCompile>
+    <ClCompile Include="SSAO.cpp">
+      <Filter>源文件\AdvencedLighting</Filter>
+    </ClCompile>
+    <ClCompile Include="TEST.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Base</Filter>
     </ClCompile>
-    <ClCompile Include="LightDirectional.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="LightPoint.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="LightSpot.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Skybox.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test1.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="DeferredRender.cpp">
+      <Filter>源文件\Base</Filter>
     </ClCompile>
     <ClCompile Include="Framebuffers.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="LightDirectional.cpp">
+      <Filter>源文件\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="LightPoint.cpp">
+      <Filter>源文件\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="LightSpot.cpp">
+      <Filter>源文件\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>源文件\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>源文件\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>源文件\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>源文件\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>源文件\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="shaderSingleColor.frag">
+    <None Include="model.vert">
       <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="model.frag">
+      <Filter>资源文件\Shader</Filter>
+    </None>
+    <None Include="instance.frag">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="instance.vert">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="gs.vert">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="gs.geom">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="gs.frag">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="ubo.vert">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="ubo_blue.frag">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="ubo_green.frag">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="ubo_red.frag">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="ubo_yellow.frag">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="framebuffers_screen.frag">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="framebuffers_screen.vert">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
+    </None>
+    <None Include="shaderSingleColor.frag">
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
     </None>
     <None Include="skybox.frag">
-      <Filter>资源文件\Shader</Filter>
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
     </None>
     <None Include="skybox.vert">
-      <Filter>资源文件\Shader</Filter>
+      <Filter>资源文件\Shader\AdvencedOpenGL</Filter>
     </None>
-    <None Include="test.frag">
-      <Filter>资源文件\Shader</Filter>
+    <None Include="BlinnPhong.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
     </None>
-    <None Include="test.vert">
-      <Filter>资源文件\Shader</Filter>
+    <None Include="BlinnPhong.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
     </None>
-    <None Include="vertexSource.vert">
-      <Filter>资源文件\Shader</Filter>
+    <None Include="ShadowMappingDepth.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
     </None>
-    <None Include="fragmentSource.frag">
-      <Filter>资源文件\Shader</Filter>
+    <None Include="ShadowMappingDepth.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="ShadowMappingDebug.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="ShadowMappingDebug.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="ShadowMapping.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="ShadowMapping.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="PointShadowDepth.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="PointShadowDepth.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="PointShadowDepth.geom">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="PointShadow.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="PointShadow.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="NormalMapping.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="NormalMapping.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="ParallaxMapping.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="ParallaxMapping.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="HDR.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="HDR.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="HDR_Lights.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="HDR_Lights.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="Bloom.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="Bloom.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="LightBox.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="BloomFinal.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="BloomFinal.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="Blur.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="Blur.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="GBuffers.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="GBuffers.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="DeferredShading.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="DeferredShading.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="DeferredLightBox.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="DeferredLightBox.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="ssao_geometry.vert">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="ssao_geometry.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="ssao_lighting.frag">
+      <Filter>资源文件\Shader\AdvencedLighting</Filter>
+    </None>
+    <None Include="gBuffer.vert">
+      <Filter>资源文件\Shader\MyShaders</Filter>
+    </None>
+    <None Include="gBuffer.frag">
+      <Filter>资源文件\Shader\MyShaders</Filter>
+    </None>
+    <None Include="deferredShader.vert">
+      <Filter>资源文件\Shader\MyShaders</Filter>
+    </None>
+    <None Include="deferredShader.frag">
+      <Filter>资源文件\Shader\MyShaders</Filter>
+    </None>
+    <None Include="ssao.frag">
+      <Filter>资源文件\Shader\MyShaders</Filter>
+    </None>
+    <None Include="ssao.vert">
+      <Filter>资源文件\Shader\MyShaders</Filter>
+    </None>
+    <None Include="ssao_blur.frag">
+      <Filter>资源文件\Shader\MyShaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LightDirectional.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LightPoint.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LightSpot.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Skybox.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="helper.h">
-      <Filter>头文件\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>头文件\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Framebuffers.h">
+    <ClInclude Include="World.h">
+      <Filter>头文件\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>头文件\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>头文件\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>头文件\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>头文件\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="AdvancedGLSL.h">
+      <Filter>头文件\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMesh.h">
+      <Filter>头文件\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
       <Filter>头文件</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="awesomeface.png">
-      <Filter>资源文件\pic</Filter>
-    </Image>
-    <Image Include="container.jpg">
-      <Filter>资源文件\pic</Filter>
-    </Image>
-    <Image Include="container2.png">
-      <Filter>资源文件\pic</Filter>
-    </Image>
-    <Image Include="container2_specular.png">
-      <Filter>资源文件\pic</Filter>
-    </Image>
-    <Image Include="pic.jpg">
-      <Filter>资源文件\pic</Filter>
-    </Image>
+    <ClInclude Include="Camera.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredRender.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Framebuffers.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="LightDirectional.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="LightPoint.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="LightSpot.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>头文件\Base</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
